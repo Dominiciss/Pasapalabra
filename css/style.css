@@ -2,6 +2,8 @@ body {
     --background-color: rgb(192, 192, 192);
     --accent: rgb(106, 106, 236);
     --secondary: rgb(75, 47, 201);
+    --confirm: rgb(60, 110, 60);
+    --rejected: rgb(241, 31, 31);
 
     background-color: var(--background-color);
     font-family: monospace;
@@ -100,9 +102,22 @@ body {
     margin: 0;
 }
 
-.pasapalabra .bg-circle .title .game {
-    font-size: 1.5em;
-    margin: 5% 0 0 0;
+.pasapalabra .bg-circle .title .game-title {
+    border-radius: 5px;
+    outline: 0;
+    padding: 0 1em;
+    height: 3em;
+    width: calc(60% - 1em);
+    margin: .7em 0 2em 0;
+    font-size: 1.4em;
+    font-family: monospace;
+    background-color: transparent;
+    border: 2px solid var(--accent);
+    transition: .2s ease-in-out all;
+}
+
+.pasapalabra .bg-circle .title .game-title[incomplete="true"] {
+    border-color: var(--rejected);
 }
 
 .pasapalabra .bg-circle .register {
@@ -125,7 +140,6 @@ body {
 .pasapalabra .bg-circle .register .word {
     border-radius: 5px;
     outline: 0;
-    border: 0;
     height: 2em;
     width: calc(80% - 1em);
     margin: .7em 0 2em 0;
@@ -166,9 +180,36 @@ body {
 }
 
 .pasapalabra .bg-circle .register .submit:hover {
-    background-color: green;
+    background-color: var(--confirm);
     transform: scale(105%, 105%);
     cursor: pointer;
+}
+
+.pasapalabra .bg-circle .register .return {
+    position: absolute;
+    top: 5%;
+    border: 0px;
+    background-color: transparent;
+    color: var(--accent);
+    transition: .2s ease-in-out all;
+}
+
+.pasapalabra .bg-circle .register .return svg {
+    height: 60px;
+    width: 60px;
+}
+
+.pasapalabra .bg-circle .register .return:hover {
+    color: var(--secondary);
+    transform: scale(115%, 115%);
+    cursor: pointer;
+}
+
+@media (max-width: 600px) {
+    .pasapalabra .bg-circle .register .return {
+        position: fixed;
+        top: 10%;
+    }
 }
 
 .pasapalabra .circle-container {
@@ -189,11 +230,30 @@ body {
     border-radius: 50%;
     background-color: transparent;
     color: white;
-    border: 1px solid white;
+    border: 2px solid white;
     justify-content: center;
     align-items: center;
     opacity: 1;
     transition: .2s ease-in-out all;
+}
+
+.pasapalabra .circle-container .letter svg {
+    position: absolute;
+    color: var(--rejected);
+    top: -7px;
+    right: -5px;
+    height: 30px;
+    width: 30px;
+    display: none;
+}
+
+.pasapalabra .circle-container .letter[incomplete=true] {
+    color: var(--background-color);
+    border-color: var(--background-color);
+}
+
+.pasapalabra .circle-container .letter[incomplete=true] svg {
+    display: block;
 }
 
 .pasapalabra .circle-container .letter:hover {
@@ -219,7 +279,12 @@ body {
 }
 
 .create:hover {
-    background-color: green;
+    background-color: var(--confirm);
     transform: scale(105%, 105%);
     cursor: pointer;
+}
+
+.create[disabled="true"] {
+    opacity: .5;
+    pointer-events: none;
 }
