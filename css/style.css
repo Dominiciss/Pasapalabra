@@ -24,16 +24,6 @@ body {
     margin: 1vh;
 }
 
-@media (max-width: 600px) {
-    .pasapalabra {
-        position: relative;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin: 2em;
-    }
-}
-
 @keyframes hide {
     0% {
         opacity: 100%;
@@ -72,7 +62,21 @@ body {
     display: flex;
 }
 
+@keyframes appear-circle {
+    0% {
+        transform: rotate(-45deg);
+        opacity: 0;
+    }
+
+    100% {
+        transform: rotate(0deg);
+        opacity: 1;
+    }
+    
+}
+
 .pasapalabra .bg-circle {
+    animation: appear-circle .4s ease-in-out 0s 1 normal forwards;
     position: absolute;
     background: var(--background-color);
     width: 75%;
@@ -93,7 +97,7 @@ body {
 }
 
 .pasapalabra .bg-circle .title .term {
-    font-size: 3em;
+    font-size: 250%;
     margin: 0;
 }
 
@@ -202,12 +206,14 @@ body {
 
 @media (max-width: 600px) {
     .pasapalabra .bg-circle .register .return {
-        position: fixed;
-        top: 10%;
+        position: absolute;
+        top: -4em;
+        left: -7em;
     }
 }
 
 .pasapalabra .circle-container {
+    animation: appear-circle .4s ease-in-out 0s 1 normal forwards;
     width: inherit;
     height: inherit;
     position: relative;
@@ -215,7 +221,20 @@ body {
     background-color: var(--accent);
 }
 
+@keyframes appear-letter {
+    0% {
+        transform: scale(2);
+        opacity: 0;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
 .pasapalabra .circle-container .letter {
+    animation: appear-letter .6s ease-in-out 0s 1 normal forwards;
     font-size: 2em;
     font-weight: 600;
     position: absolute;
@@ -228,7 +247,7 @@ body {
     border: 2px solid white;
     justify-content: center;
     align-items: center;
-    opacity: 1;
+    opacity: 0;
     transition: .2s ease-in-out all;
 }
 
