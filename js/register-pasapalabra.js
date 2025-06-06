@@ -68,24 +68,26 @@ pasapalabra.querySelector(".game-title").addEventListener("input", () => {
     checkSubmit()
 })
 
-// WORK IN PROGRESS
-document.querySelector(".create").addEventListener("click", () => {
+document.querySelector(".create").addEventListener("click", async () => {
+    let formData = new FormData()
+
     var title = pasapalabra.querySelector(".game-title").value
-    var letters = []
-    
+    var letters = "["
+
     divLetters.forEach((letter, index) => {
         var word = letter.getAttribute("word")
         var hint = letter.getAttribute("hint")
-        letters.push([word, hint])
+        letters += `{"word": ${word}, "hint": ${hint}}`
     })
-    
-    fetch("./php/create-game.php", {
+    letters += "]"
+
+    formData.append("title", title)
+    formData.append("letters", letters)
+
+    const response = await fetch("./php/create-game.php", {
         method: 'POST',
-        body: {
-            'title': title,
-            'letters': letters
-        }
-    }).then(data => console.log(data))
+        body: formData
+    })
 })
 
 function checkSubmit() {
