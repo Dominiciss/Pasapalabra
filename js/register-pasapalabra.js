@@ -70,13 +70,22 @@ pasapalabra.querySelector(".game-title").addEventListener("input", () => {
 
 // WORK IN PROGRESS
 document.querySelector(".create").addEventListener("click", () => {
-    getRequest = `title=${pasapalabra.querySelector(".game-title").value}&`
+    var title = pasapalabra.querySelector(".game-title").value
+    var letters = []
+    
     divLetters.forEach((letter, index) => {
         var word = letter.getAttribute("word")
         var hint = letter.getAttribute("hint")
-        getRequest += `letter${index}=["${(word == null) ? "" : word}","${(hint == null) ? "" : hint}"]&`
+        letters.push([word, hint])
     })
-    window.location = "./pages/game.html?" + getRequest
+    
+    fetch("./php/create-game.php", {
+        method: 'POST',
+        body: {
+            'title': title,
+            'letters': letters
+        }
+    }).then(data => console.log(data))
 })
 
 function checkSubmit() {
