@@ -1,11 +1,19 @@
 function makeLetters() {
+    var size = 0
+    if (window.innerHeight < window.innerWidth) {
+        size = window.innerHeight
+    } else {	
+        size = window.innerWidth
+    }
+    
     var circleContainer = document.querySelector(".circle-container")
+    circleContainer.parentNode.style.width = `calc(${size}px - 12vh)`
+    circleContainer.parentNode.style.height = `calc(${size}px - 12vh)`
 
     const ContainerWidth = circleContainer.clientWidth
     const ContainerHeight = circleContainer.clientHeight
 
     var divLetters = Array.from(circleContainer.querySelectorAll(".letter"))
-
 
     var index = 0
     var angle = 0
